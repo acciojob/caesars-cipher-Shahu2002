@@ -1,55 +1,34 @@
-// Your Script here.
+function rot13(str) {
+  // Create a regular expression to match uppercase letters
+  var re = /[A-Z]/;
 
-const lookup = {
-  A: "N",
-  B: "O",
-  C: "P",
-  D: "Q",
-  E: "R",
-  F: "S",
-  G: "T",
-  H: "U",
-  I: "V",
-  J: "W",
-  K: "X",
-  L: "Y",
-  M: "Z",
-  N: "A",
-  O: "B",
-  P: "C",
-  Q: "D",
-  R: "E",
-  S: "F",
-  T: "G",
-  U: "H",
-  V: "I",
-  W: "J",
-  X: "K",
-  Y: "L",
-  Z: "M",
-  "?": "?",
-  ",": ",",
-};
+  // Function to decode a single character
+  function decodeChar(char) {
+    // Check if the character is an uppercase letter
+    if (re.test(char)) {
+      // Convert the character to its ASCII code
+      var charCode = char.charCodeAt(0);
+      
+      // Calculate the new character code after shifting by 13 places
+      // Since there are 26 letters in the alphabet, shifting by 13 twice will decode the character
+      // Modulo 26 is used to ensure that the new character code wraps around if it goes beyond 'Z'
+      var decodedCharCode = ((charCode - 65 + 13) % 26) + 65;
 
-function rot13(encodedStr) {
-  let decodedArr = [];// Your Result goes here
-  // Only change code below this line
-for(let i=0; i<encodedStr.length; i++)
-	{
-		for(let j=0; j<lookup.length; j++)
-			{
-				if(encodedStr[i] == lookup[j])
-					{
-						decodedArr.push(lookup[j]);
-					}
-			}
-	}
-  return decodedArr; //return decodedArr
+      // Convert the new character code back to a character
+      return String.fromCharCode(decodedCharCode);
+    } else {
+      // If the character is not an uppercase letter, return it unchanged
+      return char;
+    }
+  }
+
+  // Use the decodeChar function to decode each character in the input string
+  var decodedStr = str.split('').map(decodeChar).join('');
+
+  return decodedStr;
 }
 
-// You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
-
-// console.log(rot13("SERR YBIR? NPPVBWBO"));
-
-// Do not change this line
-window.rot13 = rot13;
+// Example usage:
+var encodedString = "GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.";
+var decodedString = rot13(encodedString);
+console.log(decodedString); // Output: "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG."
