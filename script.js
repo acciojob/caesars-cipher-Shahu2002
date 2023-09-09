@@ -32,9 +32,18 @@ const lookup = {
 };
 
 function rot13(encodedStr) {
-  let decodedArr = []; // Your Result goes here
+  let decodedArr = [];// Your Result goes here
   // Only change code below this line
-
+for(let i=0; i<encodedStr.length; i++)
+	{
+		for(let j=0; j<lookup.length; j++)
+			{
+				if(encodedStr[i] == lookup[j])
+					{
+						decodedArr.push(lookup[j]);
+					}
+			}
+	}
   return; //return decodedArr
 }
 
